@@ -1,0 +1,124 @@
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.whl
+pip-wheel-metadata/
+share/python-wheels/
+.installed.cfg
+MANIFEST
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.conda/
+conda-env/
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints
+*.ipynb
+
+# ── Trained models (large binary files — store in cloud storage) ──────────────
+models/*.joblib
+models/*.pkl
+models/*.h5
+models/*.pt
+models/*.pth
+# Keep the models/ directory itself
+!models/.gitkeep
+
+# ── Large data files ──────────────────────────────────────────────────────────
+data/raw/*.csv
+data/processed/*.csv
+# Keep directory structure
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# ── Generated outputs ─────────────────────────────────────────────────────────
+outputs/figures/*.png
+outputs/figures/*.jpg
+outputs/metrics/*.csv
+outputs/predictions/*.csv
+outputs/stats/*.csv
+outputs/reports/*.md
+outputs/run_summary.json
+# Keep directory structure
+!outputs/figures/.gitkeep
+!outputs/metrics/.gitkeep
+!outputs/predictions/.gitkeep
+!outputs/stats/.gitkeep
+!outputs/reports/.gitkeep
+
+# ── Log files ─────────────────────────────────────────────────────────────────
+logs/
+*.log
+*.log.*
+
+# ── OS / editor artefacts ─────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.suo
+*.user
+
+# ── Testing / coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+
+# ── Docker ────────────────────────────────────────────────────────────────────
+.docker/
+
+# ── Secrets / credentials (never commit these) ───────────────────────────────
+.env
+.env.local
+.env.*.local
+secrets.yml
+secrets.yaml
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ── Presentation files ───────────────────────────────────────────────────────
+*.pptx
+*.ppt
+
+# ── Misc ─────────────────────────────────────────────────────────────────────
+*.bak
+*.tmp
+*.temp
+.cache/

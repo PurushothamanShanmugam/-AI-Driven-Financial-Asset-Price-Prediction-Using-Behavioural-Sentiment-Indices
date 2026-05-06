@@ -1,0 +1,92 @@
+version: "3.9"
+
+services:
+
+  # ── Streamlit Dashboard ────────────────────────────────────────────────────
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai_financial_dashboard
+    image: ai-financial-behavior:latest
+    ports:
+      - "8501:8501"
+    volumes:
+      # Persist models, outputs and logs across container restarts
+      - ./models:/app/models
+      - ./outputs:/app/outputs
+      - ./logs:/app/logs
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - STREAMLIT_SERVER_HEADLESS=true
+      - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+      - APP_MODE=dashboard
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # ── Model Training (run once, then exit) ──────────────────────────────────
+  trainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai_financial_trainer
+    image: ai-financial-behavior:latest
+    volumes:
+      - ./models:/app/models
+      - ./outputs:/app/outputs
+      - ./logs:/app/logs
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - APP_MODE=train
+    profiles:
+      - training   # only runs with: docker compose --profile training up trainer
+
+  # ── New Dataset Validation (run once, then exit) ──────────────────────────
+  validator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai_financial_validator
+    image: ai-financial-behavior:latest
+    volumes:
+      - ./models:/app/models
+      - ./outputs:/app/outputs
+      - ./logs:/app/logs
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - APP_MODE=validate
+    profiles:
+      - validation   # only runs with: docker compose --profile validation up validator
+
+  # ── Test Runner ───────────────────────────────────────────────────────────
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai_financial_tests
+    image: ai-financial-behavior:latest
+    volumes:
+      - ./models:/app/models
+      - ./outputs:/app/outputs
+      - ./logs:/app/logs
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - APP_MODE=test
+    profiles:
+      - testing   # only runs with: docker compose --profile testing up tests
+
+volumes:
+  models:
+  outputs:
+  logs:

@@ -1,0 +1,70 @@
+# ── Git ───────────────────────────────────────────────────────────────────────
+.git
+.gitignore
+.github
+
+# ── Python cache ─────────────────────────────────────────────────────────────
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.egg-info
+.eggs
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+.env
+.venv
+venv/
+env/
+conda-env/
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+*.ipynb
+.ipynb_checkpoints
+
+# ── Large data files (mounted as volumes at runtime) ─────────────────────────
+data/raw/*.csv
+data/processed/*.csv
+
+# ── Trained models (mounted as volume at runtime) ────────────────────────────
+models/*.joblib
+models/*.pkl
+
+# ── Generated outputs (mounted as volume at runtime) ─────────────────────────
+outputs/figures/*.png
+outputs/metrics/*.csv
+outputs/predictions/*.csv
+outputs/stats/*.csv
+outputs/reports/*.md
+outputs/run_summary.json
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ── Tests (not needed in production image) ───────────────────────────────────
+# Comment this out if you want tests inside the image
+# tests/
+
+# ── OS artefacts ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+
+# ── Presentation files ───────────────────────────────────────────────────────
+*.pptx
+*.ppt
+
+# ── Docs (reduce image size) ─────────────────────────────────────────────────
+*.md
+!README.md
+
+# ── Misc ─────────────────────────────────────────────────────────────────────
+*.bak
+*.tmp
+.cache/
