@@ -219,17 +219,7 @@ jobs:
           docker run --rm \
             --entrypoint python \
             ai-financial-behavior:ci \
-            -c "
-import sys, importlib
-print('✅ Python', sys.version)
-for pkg in ['pandas', 'numpy', 'sklearn', 'streamlit', 'plotly', 'joblib']:
-    try:
-        m = importlib.import_module(pkg if pkg != 'sklearn' else 'sklearn')
-        print(f'✅ {pkg} OK')
-    except ImportError:
-        print(f'❌ {pkg} MISSING')
-print('Docker image verification complete')
-"
+            -c "import sys, pandas, numpy, sklearn, streamlit, plotly, joblib; print('Python', sys.version); print('All packages OK')"
 
   # ══════════════════════════════════════════════════════════════════════════
   # JOB 5 — Security Scan (warn only — does not block merge)
