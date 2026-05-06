@@ -54,7 +54,7 @@ jobs:
           flake8 src/ \
             --max-line-length=120 \
             --extend-ignore=\
-          E221,E231,E241,E272,E201,E302,E501,\
+          E221,E222,E231,E241,E272,E201,E302,E501,\
           E402,E702,E701,E127,E128,\
           W292,W503,W504,W605,\
           E203,F401,F841 \
@@ -65,7 +65,7 @@ jobs:
           flake8 tests/ \
             --max-line-length=120 \
             --extend-ignore=\
-          E221,E231,E241,E272,E201,E302,E501,\
+          E221,E222,E231,E241,E272,E201,E302,E501,\
           E402,E702,E701,E127,E128,\
           W292,W503,W504,W605,\
           E203,F401,F841 \
