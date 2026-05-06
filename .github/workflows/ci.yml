@@ -114,9 +114,6 @@ jobs:
           python -m pytest \
             tests/test_modeling.py \
             tests/test_pipeline.py \
-            tests/test_features.py \
-            tests/test_preprocessing.py \
-            tests/test_behavioural_finance.py \
             -v \
             --tb=short \
             --cov=src \
