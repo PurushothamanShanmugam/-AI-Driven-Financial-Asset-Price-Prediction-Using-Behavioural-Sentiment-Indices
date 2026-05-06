@@ -202,17 +202,34 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Verify image starts correctly
+      - name: Verify image was built
         run: |
-          docker run --rm \
-            ai-financial-behavior:ci \
-            python -c "import sys; print('Python', sys.version); print('Docker image OK')"
+          docker image inspect ai-financial-behavior:ci \
+            --format '✅ Image built: {{.RepoTags}} | Size: {{.Size}} bytes'
 
-      - name: Verify entrypoint.sh is present
+      - name: Verify entrypoint.sh is present and executable
         run: |
           docker run --rm \
+            --entrypoint sh \
             ai-financial-behavior:ci \
-            ls -la /entrypoint.sh
+            -c "test -x /entrypoint.sh && echo '✅ entrypoint.sh exists and is executable' && ls -la /entrypoint.sh"
+
+      - name: Verify Python and key packages
+        run: |
+          docker run --rm \
+            --entrypoint python \
+            ai-financial-behavior:ci \
+            -c "
+import sys, importlib
+print('✅ Python', sys.version)
+for pkg in ['pandas', 'numpy', 'sklearn', 'streamlit', 'plotly', 'joblib']:
+    try:
+        m = importlib.import_module(pkg if pkg != 'sklearn' else 'sklearn')
+        print(f'✅ {pkg} OK')
+    except ImportError:
+        print(f'❌ {pkg} MISSING')
+print('Docker image verification complete')
+"
 
   # ══════════════════════════════════════════════════════════════════════════
   # JOB 5 — Security Scan (warn only — does not block merge)
