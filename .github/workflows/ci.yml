@@ -205,9 +205,8 @@ jobs:
       - name: Verify image starts correctly
         run: |
           docker run --rm \
-            -e APP_MODE=test \
             ai-financial-behavior:ci \
-            python -c "print('Docker image OK')"
+            python -c "import sys; print('Python', sys.version); print('Docker image OK')"
 
       - name: Verify entrypoint.sh is present
         run: |
